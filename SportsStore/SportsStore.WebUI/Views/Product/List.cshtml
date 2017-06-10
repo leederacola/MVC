@@ -1,0 +1,23 @@
+﻿@using SportsStore.Domain.Entities
+@model  IEnumerable<Product>
+
+@{/*
+ * Although I set the model type of the view to be the Product class, I actually want to work with an IEnumerable<Product>, 
+ * which is what the Product controller obtains from the repository and passes to the view. In Listing 7-9, you can see that
+ *  I have edited the @model expression and added some HTML and Razor expressions to display details of the products.
+*/}
+        
+        
+@{
+    ViewBag.Title = "Products";
+}
+
+@foreach (var p in Model)
+{
+    <div>
+        <h3>@p.Name</h3>
+        @p.Description
+        <h4>@p.Price.ToString("c")</h4>
+    </div>
+}
+
