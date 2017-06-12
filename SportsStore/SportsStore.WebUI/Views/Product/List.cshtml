@@ -1,5 +1,4 @@
-﻿@using SportsStore.Domain.Entities
-@model  IEnumerable<Product>
+﻿@model SportsStore.WebUI.Models.ProductsListViewModel
 
 @{/*
  * Although I set the model type of the view to be the Product class, I actually want to work with an IEnumerable<Product>, 
@@ -12,7 +11,7 @@
     ViewBag.Title = "Products";
 }
 
-@foreach (var p in Model)
+@foreach (var p in Model.Products)
 {
     <div>
         <h3>@p.Name</h3>
@@ -20,4 +19,7 @@
         <h4>@p.Price.ToString("c")</h4>
     </div>
 }
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+</div>
 
