@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using SportsStore.Domain.Abstract;
 
 /*
 Building a Category Navigation Menu
@@ -19,9 +18,25 @@ namespace SportsStore.WebUI.Controllers
 {
     public class NavController : Controller
     {
-        public string Menu()
+        // add a constructor that accepts an IProductRepository implementation as its argument. 
+        // This has the effect of declaring a dependency that Ninject will resolve when it creates instances of the NavController class. 
+        private IProductRepository repository;
+
+        public NavController(IProductRepository repo)
         {
-            return "Hello from the NavController";
+            repository = repo;
+        }
+
+        // uses a LINQ query to obtain a list of categories from the repository and passes them to the view. Notice that, since I am working with a partial view in this controller, 
+        // I call the PartialView method in the action method and that the result is a PartialViewResult object.
+        public PartialViewResult Menu()
+        {
+            IEnumerable<string> cartgories = repository.Products
+                                        .Select(x => x.Category)
+                                        .Distinct()
+                                        .OrderBy(x => x);
+
+            return PartialView(cartgories);
         }
     }
 }
