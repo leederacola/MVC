@@ -10,13 +10,16 @@ using SportsStore.WebUI.Controllers;
 using SportsStore.WebUI.Models;
 using SportsStore.WebUI.HtmlHelpers;
 
-namespace SportsStore.UnitTests {
+namespace SportsStore.UnitTests
+{
 
     [TestClass]
-    public class UnitTest1 {
+    public class UnitTest1
+    {
 
         [TestMethod]
-        public void Can_Paginate() {
+        public void Can_Paginate()
+        {
 
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
@@ -32,7 +35,7 @@ namespace SportsStore.UnitTests {
             controller.PageSize = 3;
 
             // Act
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(2).Model;
+            ProductsListViewModel result = (ProductsListViewModel)controller.List(null, 2).Model;
 
             // Assert
             Product[] prodArray = result.Products.ToArray();
@@ -42,14 +45,16 @@ namespace SportsStore.UnitTests {
         }
 
         [TestMethod]
-        public void Can_Generate_Page_Links() {
+        public void Can_Generate_Page_Links()
+        {
 
             // Arrange - define an HTML helper - we need to do this
             // in order to apply the extension method
             HtmlHelper myHelper = null;
 
             // Arrange - create PagingInfo data
-            PagingInfo pagingInfo = new PagingInfo {
+            PagingInfo pagingInfo = new PagingInfo
+            {
                 CurrentPage = 2,
                 TotalItems = 28,
                 ItemsPerPage = 10
@@ -69,7 +74,8 @@ namespace SportsStore.UnitTests {
         }
 
         [TestMethod]
-        public void Can_Send_Pagination_View_Model() {
+        public void Can_Send_Pagination_View_Model()
+        {
 
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
@@ -86,7 +92,7 @@ namespace SportsStore.UnitTests {
             controller.PageSize = 3;
 
             // Act
-            ProductsListViewModel result = (ProductsListViewModel)controller.List(2).Model;
+            ProductsListViewModel result = (ProductsListViewModel)controller.List(null, 2).Model;
 
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
