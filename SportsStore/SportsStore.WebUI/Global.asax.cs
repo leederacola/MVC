@@ -7,16 +7,12 @@ using System.Web.Routing;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Infrastructure.Binders;
 
-namespace SportsStore.WebUI
-{
-    public class MvcApplication : System.Web.HttpApplication
-    {
-        protected void Application_Start()
-        {
+namespace SportsStore.WebUI {
+    public class MvcApplication : System.Web.HttpApplication {
+        protected void Application_Start() {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            //tells mvc that it can use CartModelBinder to create instances of cart
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }

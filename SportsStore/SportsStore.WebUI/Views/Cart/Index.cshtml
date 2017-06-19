@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Sports Store: Your Cart";
 }
+
 <style>
-    #cartTable td {
-        vertical-align: middle;
-    }
+    #cartTable td { vertical-align: middle; }
 </style>
+
 <h2>Your cart</h2>
 <table id="cartTable" class="table">
     <thead>
@@ -19,8 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var line in Model.Cart.Lines)
-        {
+        @foreach (var line in Model.Cart.Lines) {
             <tr>
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.Name</td>
@@ -29,8 +28,7 @@
                     @((line.Quantity * line.Product.Price).ToString("c"))
                 </td>
                 <td>
-                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                    {
+                    @using (Html.BeginForm("RemoveFromCart", "Cart")) {
                         @Html.Hidden("ProductId", line.Product.ProductID)
                         @Html.HiddenFor(x => x.ReturnUrl)
                         <input class="btn btn-sm btn-warning"
@@ -54,3 +52,4 @@
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
     @Html.ActionLink("Checkout now", "Checkout", null, new { @class = "btn btn-primary" })
 </div>
+
