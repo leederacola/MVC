@@ -1,8 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
 
 namespace SportsStore.WebUI.Controllers
 {
+
     public class AdminController : Controller
     {
         private IProductRepository repository;
@@ -16,11 +19,27 @@ namespace SportsStore.WebUI.Controllers
         {
             return View(repository.Products);
         }
+
+        public ViewResult Edit(int productId)
+        {
+            Product product = repository.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                TempData["message"] = string.Format("{0} has been saved", product.Name);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // there is something wrong with the data values
+                return View(product);
+            }
+        }
     }
 }
-/*
- * The controller constructor declares a dependency on the IProductRepository interface, 
- * which Ninject will resolve when instances are created. The controller defines a single action method, 
- * Index, that calls the View method to select the default view for the action, passing the set of
- *  products in the database as the view model.
- */
