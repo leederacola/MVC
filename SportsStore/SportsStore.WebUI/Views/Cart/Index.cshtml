@@ -4,8 +4,7 @@
     ViewBag.Title = "Sports Store: Your Cart";
 }
 <style>
-    #cartTable td 
-    {
+    #cartTable td {
         vertical-align: middle;
     }
 </style>
@@ -20,7 +19,8 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var line in Model.Cart.Lines) {
+        @foreach (var line in Model.Cart.Lines)
+        {
             <tr>
                 <td class="text-center">@line.Quantity</td>
                 <td class="text-left">@line.Product.Name</td>
@@ -52,4 +52,5 @@
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
+    @Html.ActionLink("Checkout now", "Checkout", null, new { @class = "btn btn-primary" })
 </div>
